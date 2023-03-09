@@ -27,19 +27,14 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     services:
-      mysql:
-        image: mysql:8
-        ports: ['3306:3306']
+      postgres:
+        image: postgres:11-alpine
+        ports:
+          - "5432:5432"
         env:
-          MYSQL_ROOT_PASSWORD: 'my-root-pw'
-          MYSQL_DATABASE: test_db
-          MYSQL_USER: username_you_like
-          MYSQL_PASSWORD: password_you_like
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-      redis:
-        image: redis
-        ports: ['6379:6379']
-        options: --entrypoint redis-server
+          POSTGRES_DB: rails_test
+          POSTGRES_USER: rails
+          POSTGRES_PASSWORD: password
     steps:
       - uses: actions/checkout@v1
       - name: Setup Ruby
