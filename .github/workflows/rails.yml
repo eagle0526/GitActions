@@ -66,8 +66,11 @@ jobs:
           REDIS_URL: redis://localhost:6379/1
           RAILS_ENV: test
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-        run: |
-          bundle exec rspec --format RspecJunitFormatter --out ./reports/rspec.xml
+        run: bundle exec rspec
+        # run: |
+        #   bundle exec rspec --format RspecJunitFormatter --out ./reports/rspec.xml
+          
+          
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v2
         with:
